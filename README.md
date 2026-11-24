@@ -10,7 +10,9 @@ cd agent-skills
 powershell -ExecutionPolicy Bypass -File .\install.ps1
 ```
 
-One command, 55 skills from 5 packages, linked into Claude Code and the universal skills folder.
+One command, 63 skills from 8 packages, linked into Claude Code and the universal skills folder.
+
+What each skill does and how to call it: [GUIDE.md](GUIDE.md).
 
 ## Skills
 
@@ -41,6 +43,41 @@ What I use it for: front-end work, since I come from the back end. Visual direct
 | `webapp-testing` | [skills/webapp-testing](https://github.com/anthropics/skills/tree/main/skills/webapp-testing) |
 
 The repository has no top-level license. Each of these four skills ships its own `LICENSE.txt` (Apache 2.0).
+
+### [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills) · MIT (per skill)
+
+What I use it for: reviewing UI code and keeping React and Next.js fast.
+
+| Skill | Source |
+| --- | --- |
+| `web-design-guidelines` | [skills/web-design-guidelines](https://github.com/vercel-labs/agent-skills/tree/main/skills/web-design-guidelines) |
+| `vercel-react-best-practices` | [skills/react-best-practices](https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices) |
+
+The repository has no top-level license; `vercel-react-best-practices` declares MIT in its `SKILL.md`.
+
+### [addyosmani/web-quality-skills](https://github.com/addyosmani/web-quality-skills) · MIT
+
+What I use it for: accessibility (WCAG 2.2), performance and SEO audits before a site goes live.
+
+| Skill | Source |
+| --- | --- |
+| `accessibility` | [skills/accessibility](https://github.com/addyosmani/web-quality-skills/tree/main/skills/accessibility) |
+| `web-quality-audit` | [skills/web-quality-audit](https://github.com/addyosmani/web-quality-skills/tree/main/skills/web-quality-audit) |
+| `performance` | [skills/performance](https://github.com/addyosmani/web-quality-skills/tree/main/skills/performance) |
+
+`web-quality-audit` reads files from `performance`, so the two go together. Its helper script needs `jq`.
+
+### [emilkowalski/skills](https://github.com/emilkowalski/skills) · MIT
+
+What I use it for: interface animation that feels right, and knowing where not to animate.
+
+| Skill | Source |
+| --- | --- |
+| `animate` | [skills/animate](https://github.com/emilkowalski/skills/tree/main/skills/animate) |
+| `find-animation-opportunities` | [skills/find-animation-opportunities](https://github.com/emilkowalski/skills/tree/main/skills/find-animation-opportunities) |
+| `review-animations` | [skills/review-animations](https://github.com/emilkowalski/skills/tree/main/skills/review-animations) |
+
+The package has 18 skills; the script installs only these three. The rest target native apps or other libraries.
 
 ### [vercel-labs/skills](https://github.com/vercel-labs/skills) · MIT
 

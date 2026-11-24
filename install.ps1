@@ -39,6 +39,18 @@ $Packages = @(
         Skills = @('frontend-design', 'theme-factory', 'webapp-testing', 'web-artifacts-builder')
     },
     @{
+        Source = 'vercel-labs/agent-skills'
+        Skills = @('web-design-guidelines', 'vercel-react-best-practices')
+    },
+    @{
+        Source = 'addyosmani/web-quality-skills'
+        Skills = @('accessibility', 'performance', 'web-quality-audit')
+    },
+    @{
+        Source = 'emilkowalski/skills'
+        Skills = @('animate', 'find-animation-opportunities', 'review-animations')
+    },
+    @{
         Source = 'vercel-labs/skills'
         Skills = @('find-skills')
     },
