@@ -45,6 +45,15 @@ $Packages = @(
     @{
         Source = 'blader/humanizer'
         Skills = @('humanizer')
+    },
+    @{
+        Source = 'jakeschincariol/founder-skill'
+        Skills = @(
+            'founder-board', 'founder-brand', 'founder-cfo',
+            'founder-competitors', 'founder-consumer', 'founder-launch',
+            'founder-marketing', 'founder-offer', 'founder-ops',
+            'founder-plan', 'founder-pricing'
+        )
     }
 )
 

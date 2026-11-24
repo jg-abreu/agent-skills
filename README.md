@@ -10,7 +10,7 @@ cd agent-skills
 powershell -ExecutionPolicy Bypass -File .\install.ps1
 ```
 
-One command, 44 skills from 4 packages, linked into Claude Code and the universal skills folder.
+One command, 55 skills from 5 packages, linked into Claude Code and the universal skills folder.
 
 ## Skills
 
@@ -58,6 +58,19 @@ What I use it for: editing READMEs, posts and articles so they don't read like a
 | --- | --- |
 | `humanizer` | [SKILL.md](https://github.com/blader/humanizer/blob/main/SKILL.md) |
 
+### [jakeschincariol/founder-skill](https://github.com/Jakeschincariol/founder-skill) · MIT
+
+What I use it for: testing a business idea before launch, with one skill per role in the company (board, CFO, marketing, operations and a panel of simulated buyers).
+
+| Group | Skills |
+| --- | --- |
+| Validation | `founder-board`, `founder-competitors`, `founder-consumer` |
+| Offer and money | `founder-pricing`, `founder-offer`, `founder-cfo` |
+| Go to market | `founder-marketing`, `founder-brand`, `founder-launch` |
+| Running it | `founder-ops`, `founder-plan` |
+
+Source folders: [skills/](https://github.com/Jakeschincariol/founder-skill/tree/main/skills). The tools need Python 3.8 or newer.
+
 ## How it works
 
 `install.ps1` checks that Node.js and git exist, then runs one command per package:
@@ -73,7 +86,7 @@ npx.cmd skills add <owner/repo> -g -y -a universal claude-code --skill <names...
 
 Running the script again reinstalls the same skills in place. At the end it prints a summary per package and the output of `npx skills ls -g`. It exits with code 1 if any package fails.
 
-Requirements: Windows PowerShell 5.1 or newer, Node.js 18+, git.
+Requirements: Windows PowerShell 5.1 or newer, Node.js 18+, git. Python 3.8+ for the founder skills' tools.
 
 ## Works across agents
 
