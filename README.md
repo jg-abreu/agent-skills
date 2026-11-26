@@ -1,8 +1,26 @@
-# agent-skills
+# Agent skills
 
-The agent skills I use with Claude Code and Codex, and one script that puts them back on any machine.
+[![PowerShell installer](https://img.shields.io/badge/installer-PowerShell-2766A3)](install.ps1) [![MIT license](https://img.shields.io/badge/license-MIT-39764D)](LICENSE)
 
-Skills live in hidden folders (`~/.agents/skills`, `~/.claude/skills`) and come from different authors. After a fresh install or a new PC, I had no list of what I used or where each skill came from. This repo is that list. It does not copy anyone's files: it points to each source and reinstalls everything with the [skills CLI](https://skills.sh/).
+When I set up a new Windows machine, I want the skills I use in Claude Code and Codex back in one place. I keep my selection here with a PowerShell installer and a guide to when I use each skill.
+
+[Browse the skills guide](GUIDE.md) · [View the installer](install.ps1)
+
+## Usage examples
+
+Suppose an enrollment test passes locally but fails in CI. Here is how I would work through it:
+
+| Task | Skill | Example prompt |
+| --- | --- | --- |
+| Diagnose the failure | `diagnosing-bugs` | Use diagnosing-bugs to investigate why the enrollment test passes locally but fails in GitHub Actions. Start by comparing the two environments. |
+| Capture the expected behavior | `tdd` | Use tdd to write a failing test for this case: when a student cancels, only the first person on the waitlist should get the seat. |
+| Prepare the change for review | `pr` | Use pr to draft a pull request description from this branch. Explain what caused the failure, what changed, and how I tested it. |
+
+[Explore all 63 skills and example prompts →](GUIDE.md)
+
+## Install on Windows
+
+You need PowerShell 5.1 or later, Git, and Node.js 18 or later with npm. Some individual tools have extra requirements: Python 3.8+ for the founder tools and `jq` for the web audit helper.
 
 ```powershell
 git clone https://github.com/jg-abreu/agent-skills.git
@@ -10,133 +28,23 @@ cd agent-skills
 powershell -ExecutionPolicy Bypass -File .\install.ps1
 ```
 
-One command, 63 skills from 8 packages, linked into Claude Code and the universal skills folder.
+The script calls the [skills CLI](https://skills.sh/) once per source, installs the selected names at user level in `~/.agents/skills`, and links them into `~/.claude/skills`. It prints a per-package summary and exits with code 1 if a package fails.
 
-What each skill does and how to call it: [GUIDE.md](GUIDE.md).
+Running it again reinstalls those names from upstream. The list fixes which skills to fetch, while their contents can change between runs. Review a skill’s `SKILL.md` and bundled scripts before installing it.
 
-## Skills
+## Sources
 
-Each skill keeps its author's license. The MIT license in this repo covers only `install.ps1` and this README.
-
-### [mattpocock/skills](https://github.com/mattpocock/skills) · MIT
-
-What I use it for: planning and building code with specs, TDD, reviews and bug diagnosis, plus writing and handoff between sessions.
-
-| Group | Skills |
-| --- | --- |
-| Engineering | `ask-matt`, `code-review`, `codebase-design`, `diagnosing-bugs`, `domain-modeling`, `grill-with-docs`, `implement`, `implement-spec`, `improve-codebase-architecture`, `pr`, `prototype`, `research`, `retro`, `setup-matt-pocock-skills`, `tdd`, `to-spec`, `to-tickets`, `triage`, `wayfinder`, `wizard` |
-| Productivity | `grill-me`, `grilling`, `handoff`, `teach`, `to-questionnaire`, `wait-what`, `writing-for-agents` |
-| Misc | `git-guardrails-claude-code`, `migrate-to-shoehorn`, `scaffold-exercises`, `setup-pre-commit` |
-| In progress (upstream) | `chief-of-staff`, `claude-handoff`, `loop-me`, `setup-ts-deep-modules`, `writing-beats`, `writing-fragments`, `writing-shape` |
-
-The script installs these 38 by name. Other skills the author adds to the package are not installed until I add them here.
-
-### [anthropics/skills](https://github.com/anthropics/skills) · Apache 2.0 (per skill)
-
-What I use it for: front-end work, since I come from the back end. Visual direction, themes, React artifacts and browser testing with Playwright.
-
-| Skill | Source |
-| --- | --- |
-| `frontend-design` | [skills/frontend-design](https://github.com/anthropics/skills/tree/main/skills/frontend-design) |
-| `theme-factory` | [skills/theme-factory](https://github.com/anthropics/skills/tree/main/skills/theme-factory) |
-| `web-artifacts-builder` | [skills/web-artifacts-builder](https://github.com/anthropics/skills/tree/main/skills/web-artifacts-builder) |
-| `webapp-testing` | [skills/webapp-testing](https://github.com/anthropics/skills/tree/main/skills/webapp-testing) |
-
-The repository has no top-level license. Each of these four skills ships its own `LICENSE.txt` (Apache 2.0).
-
-### [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills) · MIT (per skill)
-
-What I use it for: reviewing UI code and keeping React and Next.js fast.
-
-| Skill | Source |
-| --- | --- |
-| `web-design-guidelines` | [skills/web-design-guidelines](https://github.com/vercel-labs/agent-skills/tree/main/skills/web-design-guidelines) |
-| `vercel-react-best-practices` | [skills/react-best-practices](https://github.com/vercel-labs/agent-skills/tree/main/skills/react-best-practices) |
-
-The repository has no top-level license; `vercel-react-best-practices` declares MIT in its `SKILL.md`.
-
-### [addyosmani/web-quality-skills](https://github.com/addyosmani/web-quality-skills) · MIT
-
-What I use it for: accessibility (WCAG 2.2), performance and SEO audits before a site goes live.
-
-| Skill | Source |
-| --- | --- |
-| `accessibility` | [skills/accessibility](https://github.com/addyosmani/web-quality-skills/tree/main/skills/accessibility) |
-| `web-quality-audit` | [skills/web-quality-audit](https://github.com/addyosmani/web-quality-skills/tree/main/skills/web-quality-audit) |
-| `performance` | [skills/performance](https://github.com/addyosmani/web-quality-skills/tree/main/skills/performance) |
-
-`web-quality-audit` reads files from `performance`, so the two go together. Its helper script needs `jq`.
-
-### [emilkowalski/skills](https://github.com/emilkowalski/skills) · MIT
-
-What I use it for: interface animation that feels right, and knowing where not to animate.
-
-| Skill | Source |
-| --- | --- |
-| `animate` | [skills/animate](https://github.com/emilkowalski/skills/tree/main/skills/animate) |
-| `find-animation-opportunities` | [skills/find-animation-opportunities](https://github.com/emilkowalski/skills/tree/main/skills/find-animation-opportunities) |
-| `review-animations` | [skills/review-animations](https://github.com/emilkowalski/skills/tree/main/skills/review-animations) |
-
-The package has 18 skills; the script installs only these three. The rest target native apps or other libraries.
-
-### [vercel-labs/skills](https://github.com/vercel-labs/skills) · MIT
-
-What I use it for: finding and vetting new skills before I install them.
-
-| Skill | Source |
-| --- | --- |
-| `find-skills` | [skills/find-skills](https://github.com/vercel-labs/skills/tree/main/skills/find-skills) |
-
-### [blader/humanizer](https://github.com/blader/humanizer) · MIT
-
-What I use it for: editing READMEs, posts and articles so they don't read like a chatbot wrote them.
-
-| Skill | Source |
-| --- | --- |
-| `humanizer` | [SKILL.md](https://github.com/blader/humanizer/blob/main/SKILL.md) |
-
-### [jakeschincariol/founder-skill](https://github.com/Jakeschincariol/founder-skill) · MIT
-
-What I use it for: testing a business idea before launch, with one skill per role in the company (board, CFO, marketing, operations and a panel of simulated buyers).
-
-| Group | Skills |
-| --- | --- |
-| Validation | `founder-board`, `founder-competitors`, `founder-consumer` |
-| Offer and money | `founder-pricing`, `founder-offer`, `founder-cfo` |
-| Go to market | `founder-marketing`, `founder-brand`, `founder-launch` |
-| Running it | `founder-ops`, `founder-plan` |
-
-Source folders: [skills/](https://github.com/Jakeschincariol/founder-skill/tree/main/skills). The tools need Python 3.8 or newer.
-
-## How it works
-
-`install.ps1` checks that Node.js and git exist, then runs one command per package:
-
-```powershell
-npx.cmd skills add <owner/repo> -g -y -a universal claude-code --skill <names...>
-```
-
-- `-g` installs at user level, not inside a project.
-- `-a universal claude-code` places the skill in `~/.agents/skills` and links it into `~/.claude/skills`.
-- Symlinks are the CLI default (junctions on Windows), so each skill exists once on disk.
-- `npx.cmd` instead of `npx` avoids PowerShell's execution policy blocking `npx.ps1`.
-
-Running the script again reinstalls the same skills in place. At the end it prints a summary per package and the output of `npx skills ls -g`. It exits with code 1 if any package fails.
-
-Requirements: Windows PowerShell 5.1 or newer, Node.js 18+, git. Python 3.8+ for the founder skills' tools.
-
-## Works across agents
-
-These skills follow the open [Agent Skills](https://agentskills.io) format: a folder with a `SKILL.md` file and optional resources. Claude Code reads `~/.claude/skills`; Codex, Gemini CLI, GitHub Copilot and other tools read `~/.agents/skills`. The same install serves all of them.
-
-## Security
-
-A skill runs with your agent's full permissions. It can tell the agent to run commands, edit files or call the network. Before installing a third-party skill, read its `SKILL.md` and any scripts it ships, and check the author and the repository. The [skills.sh](https://skills.sh/) page of each skill also shows automated risk checks.
-
-## My own skills
-
-Skills I write myself will go in a `skills/` folder in this repo, and the install script will pick them up from there.
+| Package | What I use it for | Skills | Upstream license |
+| --- | --- | ---: | --- |
+| [mattpocock/skills](https://github.com/mattpocock/skills) | Planning features, testing, reviewing changes and writing | 38 | MIT |
+| [anthropics/skills](https://github.com/anthropics/skills) | Designing and testing interfaces | 4 | Apache 2.0 in each selected skill |
+| [vercel-labs/agent-skills](https://github.com/vercel-labs/agent-skills) | Reviewing UI and React performance | 2 | Per skill. The React skill declares MIT |
+| [addyosmani/web-quality-skills](https://github.com/addyosmani/web-quality-skills) | Auditing accessibility, page speed and site quality | 3 | MIT |
+| [emilkowalski/skills](https://github.com/emilkowalski/skills) | Designing and reviewing interface motion | 3 | MIT |
+| [vercel-labs/skills](https://github.com/vercel-labs/skills) | Finding skills for unfamiliar tasks | 1 | MIT |
+| [blader/humanizer](https://github.com/blader/humanizer) | Editing drafts in the author's voice | 1 | MIT |
+| [jakeschincariol/founder-skill](https://github.com/Jakeschincariol/founder-skill) | Testing a business idea and planning its launch | 11 | MIT |
 
 ## License
 
-`install.ps1` and this README are under the [MIT License](LICENSE). The skills listed above belong to their authors and follow their own licenses.
+The installer and documentation are under the [MIT License](LICENSE). Each third-party skill is distributed by its author under its upstream terms.
